@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 @Entity
 
 
-public class Character {
+public class Toon {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +30,11 @@ public class Character {
 	@ManyToOne
 	private Realm realm;
 
-	public Character() {
+	public Toon() {
 		super();
 	}
 
-	public Character(Integer id, String name, Integer level, String race, String clazz, Integer gold, Realm realm) {
+	public Toon(Integer id, String name, Integer level, String race, String clazz, Integer gold, Realm realm) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -120,7 +120,7 @@ public class Character {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Character other = (Character) obj;
+		Toon other = (Toon) obj;
 		return Objects.equals(clazz, other.clazz) && Objects.equals(gold, other.gold) && Objects.equals(id, other.id)
 				&& Objects.equals(level, other.level) && Objects.equals(name, other.name)
 				&& Objects.equals(race, other.race);
