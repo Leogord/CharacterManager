@@ -33,7 +33,8 @@ public class Toon {
 	public Toon() {
 		super();
 	}
-
+	
+	
 	public Toon(Integer id, String name, Integer level, String race, String clazz, Integer gold, Realm realm) {
 		super();
 		this.id = id;
@@ -44,6 +45,17 @@ public class Toon {
 		this.gold = gold;
 		this.realm = realm;
 	}
+
+	public Toon(Integer id, String name, Integer level, String race, String clazz, Integer gold) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.level = level;
+		this.race = race;
+		this.clazz = clazz;
+		this.gold = gold;
+	}
+
 
 	public Integer getId() {
 		return id;
