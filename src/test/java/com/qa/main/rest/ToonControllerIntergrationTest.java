@@ -31,7 +31,7 @@ import com.qa.main.data.Toon;
 @ActiveProfiles("test")
 @Sql(scripts = {"classpath:toon-schema.sql",
 "classpath:toon-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class ToonControllerJUnitTest {
+public class ToonControllerIntergrationTest {
 
 	@Autowired
 	private MockMvc mvc;

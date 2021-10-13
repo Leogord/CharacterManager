@@ -30,7 +30,7 @@ import com.qa.main.data.Realm;
 @ActiveProfiles("test")
 @Sql(scripts = {"classpath:realm-schema.sql",
 "classpath:realm-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class RealmControllerJUnitTest {
+public class RealmControllerIntergrationTest {
 
 	@Autowired
 	private MockMvc mvc;

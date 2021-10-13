@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.main.data.Realm;
+import com.qa.main.dto.RealmDTO;
 import com.qa.main.service.RealmServiceDB;
 
 @RestController
@@ -26,12 +27,12 @@ public class RealmController {
 	}
 	
 	@GetMapping("/getRealmById/{id}")
-	public Realm getRealm(@PathVariable Integer id) {
+	public RealmDTO getRealm(@PathVariable Integer id) {
 		return service.getRealmById(id);
 	}
 	
 	@GetMapping("/getAllRealms")
-	public List<Realm> getAllRealms(){
+	public List<RealmDTO> getAllRealms(){
 		return service.getAllRealms();
 	}
 	
