@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.qa.main.data.Toon;
+import com.qa.main.dto.ToonDTO;
+import com.qa.main.dto.ToonWithRealmDTO;
 import com.qa.main.service.ToonServiceDB;
 
 @RestController
@@ -26,12 +28,12 @@ public class ToonController {
 	}
 	
 	@GetMapping("/getToonById/{id}")
-	public Toon getToon(@PathVariable Integer id) {
+	public ToonWithRealmDTO getToon(@PathVariable Integer id) {
 		return service.getToonById(id);
 	}
 	
 	@GetMapping("/getAllToons")
-	public List<Toon> getAllToons(){
+	public List<ToonWithRealmDTO> getAllToons(){
 		return service.getAllToons();
 	}
 	
