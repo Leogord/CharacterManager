@@ -33,7 +33,12 @@ public class RealmController {
 	
 	@GetMapping("/getAllRealms")
 	public List<RealmDTO> getAllRealms(){
-		return service.getAllRealms();
+		return service.getAllRealms(); 
+	}
+	
+	@GetMapping("/getRealmByName/{name}")
+	public RealmDTO getRealmByName(@PathVariable String name) {
+		return service.getRealmByName(name);
 	}
 	
 	@PostMapping("/createRealm")
