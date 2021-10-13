@@ -48,6 +48,12 @@ public class RealmServiceDB {
 		return this.mapToDTO(saved);
 	}
 	
+	
+	public RealmDTO getRealmByName(String name) {
+		Realm saved = repo.findByName(name);
+		return this.mapToDTO(saved);
+	}
+	
 	public List<RealmDTO> getAllRealms(){
 		List<Realm> saved = repo.findAll();
 		List<RealmDTO> toSend = new ArrayList<>();
@@ -59,6 +65,7 @@ public class RealmServiceDB {
 	}
 	
 	public Realm createRealm(Realm realm) {
+		
 		return repo.save(realm);
 	}
 	
@@ -72,5 +79,7 @@ public class RealmServiceDB {
 	public void deleteRealmById(Integer id) {
 		this.repo.deleteById(id);
 	}
+	
+	
 	
 }
