@@ -41,6 +41,12 @@ public class RealmController {
 		return service.getRealmByName(name);
 	}
 	
+	@GetMapping("/getRealmByRegion/{region}")
+	public List<RealmDTO> getRealmByRegion(@PathVariable String region) {
+		return service.getRealmByRegion(region);
+	}
+	
+	
 	@PostMapping("/createRealm")
 	public ResponseEntity<Realm> createRealm(@RequestBody Realm realm){
 		Realm responseBody = service.createRealm(realm);

@@ -3,6 +3,7 @@ package com.qa.main.dto;
 import java.util.Objects;
 
 import com.qa.main.data.Realm;
+import com.qa.main.data.User;
 
 public class ToonWithRealmDTO {
 	private Integer id;
@@ -18,8 +19,10 @@ public class ToonWithRealmDTO {
 	private Integer gold;
 	
 	private Realm realm;
+	
+	private User user;
 
-	public ToonWithRealmDTO(Integer id, String name, Integer level, String race, String clazz, Integer gold, Realm realm) {
+	public ToonWithRealmDTO(Integer id, String name, Integer level, String race, String clazz, Integer gold, Realm realm,User user) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -28,12 +31,25 @@ public class ToonWithRealmDTO {
 		this.clazz = clazz;
 		this.gold = gold;
 		this.realm = realm;
+		this.user = user;
 	}
 	
 	
 
 	public ToonWithRealmDTO() {
 		super();
+	}
+
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 
@@ -98,7 +114,15 @@ public class ToonWithRealmDTO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(clazz, gold, id, level, name, race, realm);
+		return Objects.hash(clazz, gold, id, level, name, race, realm, user);
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "ToonWithRealmDTO [id=" + id + ", name=" + name + ", level=" + level + ", race=" + race + ", clazz="
+				+ clazz + ", gold=" + gold + ", realm=" + realm + ", user=" + user + "]";
 	}
 
 
@@ -114,7 +138,8 @@ public class ToonWithRealmDTO {
 		ToonWithRealmDTO other = (ToonWithRealmDTO) obj;
 		return Objects.equals(clazz, other.clazz) && Objects.equals(gold, other.gold) && Objects.equals(id, other.id)
 				&& Objects.equals(level, other.level) && Objects.equals(name, other.name)
-				&& Objects.equals(race, other.race) && Objects.equals(realm, other.realm);
+				&& Objects.equals(race, other.race) && Objects.equals(realm, other.realm)
+				&& Objects.equals(user, other.user);
 	}
 
 	

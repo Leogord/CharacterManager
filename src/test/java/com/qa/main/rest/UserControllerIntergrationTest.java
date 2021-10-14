@@ -23,16 +23,15 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qa.main.data.Realm;
-import com.qa.main.data.Toon;
 import com.qa.main.data.User;
+
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 @Sql(scripts = {"classpath:toon-schema.sql",
 "classpath:toon-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class ToonControllerIntergrationTest {
+public class UserControllerIntergrationTest {
 
 	@Autowired
 	private MockMvc mvc;
@@ -41,64 +40,54 @@ public class ToonControllerIntergrationTest {
 	private ObjectMapper mapper;
 	
 	@Test
-	 void testGetToonById() throws Exception {
-		final Toon savedToon = new Toon(1,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"));
-		String savedAsJson = this.mapper.writeValueAsString(savedToon);
+	 void testGetUserByName() throws Exception {
+		final User savedUser = new User(1,"Jack",null);
+		String savedAsJson = this.mapper.writeValueAsString(savedUser);
 		 
-		RequestBuilder request = get("/getToonById/" + savedToon.getId());
+		RequestBuilder request = get("/getUserByName/" + savedUser.getName());
 		
 		ResultMatcher checkStatus = status().isOk();
 		ResultMatcher checkContent = content().json(savedAsJson);
 		
 		this.mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
 	}
+
+
 	@Test
-	void testGetAllToons() throws Exception {
-		String savedToonAsJSON = this.mapper
-				.writeValueAsString(List.of(new Toon(1,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"))));
+	void testGetAllUsers() throws Exception {
+		String savedUserAsJSON = this.mapper
+				.writeValueAsString(List.of(new User(1,"Jack",null)));
 		
-		RequestBuilder request = get("/getAllToons");
+		RequestBuilder request = get("/getAllUsers");
 		
 		ResultMatcher checkStatus = status().isOk();
-		ResultMatcher checkContent = content().json(savedToonAsJSON);
+		ResultMatcher checkContent = content().json(savedUserAsJSON);
 
 		this.mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
 	}
 	
 	@Test
 	void testCreate() throws Exception {
-		final Toon testToon = new Toon(2,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"));
-		String testToonAsJSON = this.mapper.writeValueAsString(testToon);
+		final User testUser = new User(2,"Dave",null);
+		String testUserAsJSON = this.mapper.writeValueAsString(testUser);
 
-		final Toon savedToon = new Toon(2,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"));
-		String savedToonAsJSON = this.mapper.writeValueAsString(savedToon);
+		final User savedUser = new User(2,"Dave",null);
+		String savedUserAsJSON = this.mapper.writeValueAsString(savedUser);
 
-		RequestBuilder request = post("/createToon").contentType(MediaType.APPLICATION_JSON)
-				.content(testToonAsJSON);
+		RequestBuilder request = post("/createUser").contentType(MediaType.APPLICATION_JSON)
+				.content(testUserAsJSON);
 
 		ResultMatcher checkStatus = status().isCreated();
-		ResultMatcher checkContent = content().json(savedToonAsJSON);
+		ResultMatcher checkContent = content().json(savedUserAsJSON);
 
 		this.mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
 	}
-	
-	@Test
-	void testUpdate() throws Exception {
-		final Toon testToon = new Toon(1,new User(1,"Jack",null),"Shadrock",60,"Night Elf","Hunter",100,new Realm(1,"Frostmane","EU"));
-		final String testToonAsJSON = this.mapper.writeValueAsString(testToon);
 
-		RequestBuilder request = put("/updateToon/1").contentType(MediaType.APPLICATION_JSON)
-				.content(testToonAsJSON);
-
-		ResultMatcher checkStatus = status().isAccepted();
-		ResultMatcher checkContent = content().json(testToonAsJSON);
-
-		this.mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
-	}
-	
 	@Test
 	void testDelete() throws Exception {
-		this.mvc.perform(delete("/deleteToon/1")).andExpect(status().isNoContent());
+		this.mvc.perform(delete("/deleteToon/1"));
+		this.mvc.perform(delete("/deleteRealm/1"));
+		this.mvc.perform(delete("/deleteUser/1")).andExpect(status().isNoContent());
 	}
 	
 }

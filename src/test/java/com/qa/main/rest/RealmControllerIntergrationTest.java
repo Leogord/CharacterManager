@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.main.data.Realm;
+import com.qa.main.dto.RealmDTO;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -50,6 +51,32 @@ public class RealmControllerIntergrationTest {
 		
 		this.mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
 	}
+	
+	@Test
+	 void testGetRealmByName() throws Exception {
+		final Realm savedRealm = new Realm(1, "Frostmane", "EU");
+		String savedAsJson = this.mapper.writeValueAsString(savedRealm);
+		 
+		RequestBuilder request = get("/getRealmByName/" + savedRealm.getName());
+		
+		ResultMatcher checkStatus = status().isOk();
+		ResultMatcher checkContent = content().json(savedAsJson);
+		
+		this.mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
+	}
+	
+	@Test
+	 void testGetRealmByRegion() throws Exception {
+		final List<Realm> savedRealm =List.of(new Realm(1, "Frostmane", "EU"));
+		String savedAsJson = this.mapper.writeValueAsString(savedRealm);
+		 
+		RequestBuilder request = get("/getRealmByRegion/" + savedRealm.get(0).getRegion());
+		
+		ResultMatcher checkStatus = status().isOk();
+		ResultMatcher checkContent = content().json(savedAsJson);
+		
+		this.mvc.perform(request).andExpect(checkStatus).andExpect(checkContent);
+	}
 	@Test
 	void testGetAllRealms() throws Exception {
 		String savedRealmAsJSON = this.mapper
@@ -65,10 +92,10 @@ public class RealmControllerIntergrationTest {
 	
 	@Test
 	void testCreate() throws Exception {
-		final Realm testRealm = new Realm(null, "Frostmane", "EU");
+		final Realm testRealm = new Realm(2, "Azjol", "EU");
 		String testRealmAsJSON = this.mapper.writeValueAsString(testRealm);
 
-		final Realm savedRealm = new Realm(2, "Frostmane", "EU");
+		final Realm savedRealm = new Realm(2, "Azjol", "EU");
 		String savedRealmAsJSON = this.mapper.writeValueAsString(savedRealm);
 
 		RequestBuilder request = post("/createRealm").contentType(MediaType.APPLICATION_JSON)

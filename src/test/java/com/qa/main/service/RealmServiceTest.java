@@ -16,6 +16,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.qa.main.data.Realm;
 import com.qa.main.data.Toon;
+import com.qa.main.data.User;
 import com.qa.main.dto.RealmDTO;
 import com.qa.main.dto.ToonDTO;
 import com.qa.main.repo.RealmRepo;
@@ -32,8 +33,8 @@ public class RealmServiceTest {
 
 	@Test
 	void testMapToDTO() {
-		final List<ToonDTO> listToonDto = List.of(new ToonDTO(1, "Jack", 16, "Night Elf", "Warrior", 123));
-		final List<Toon> listToon = List.of(new Toon(1, "Jack", 16, "Night Elf", "Warrior", 123));
+		final List<ToonDTO> listToonDto = List.of(new ToonDTO(1,"Jack", 16, "Night Elf", "Warrior", 123));
+		final List<Toon> listToon = List.of(new Toon(1,new User(1,"Jack",null), "Jack", 16, "Night Elf", "Warrior", 123));
 		final RealmDTO realmDTO = new RealmDTO(1, "FrostMane", "EU", listToonDto);
 		final Realm realm = new Realm(1, listToon, "FrostMane", "EU");
 
@@ -43,7 +44,7 @@ public class RealmServiceTest {
 
 	@Test
 	void testGetAllRealms() {
-		final List<Toon> listToon = List.of(new Toon(1, "Jack", 16, "Night Elf", "Warrior", 123));
+		final List<Toon> listToon = List.of(new Toon(2,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU")));
 		final List<Realm> realms = List.of(new Realm(1, listToon, "FrostMane", "EU"),
 				new Realm(2, listToon, "FrostMane", "EU"));
 		List<RealmDTO> tocheck = new ArrayList<>();
@@ -89,14 +90,14 @@ public class RealmServiceTest {
 	@Test
 	void testGetById() {
 		final Integer Id = 1;
-		final List<Toon> listToon = List.of(new Toon(1, "Jack", 16, "Night Elf", "Warrior", 123));
+		final List<Toon> listToon = List.of(new Toon(2,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU")));
 		final Realm realm = new Realm(1, listToon, "FrostMane", "EU");
 		RealmDTO toCheck = this.service.mapToDTO(realm);
 
 		Mockito.when(this.repo.findById(Id)).thenReturn(Optional.of(realm));
 
 		assertThat(this.service.getRealmById(Id)).isEqualTo(toCheck);
-
+ 
 		Mockito.verify(this.repo, Mockito.times(1)).findById(Id);
 	}
 
