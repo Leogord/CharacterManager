@@ -33,8 +33,19 @@ public class RealmController {
 	
 	@GetMapping("/getAllRealms")
 	public List<RealmDTO> getAllRealms(){
-		return service.getAllRealms();
+		return service.getAllRealms(); 
 	}
+	
+	@GetMapping("/getRealmByName/{name}")
+	public RealmDTO getRealmByName(@PathVariable String name) {
+		return service.getRealmByName(name);
+	}
+	
+	@GetMapping("/getRealmByRegion/{region}")
+	public List<RealmDTO> getRealmByRegion(@PathVariable String region) {
+		return service.getRealmByRegion(region);
+	}
+	
 	
 	@PostMapping("/createRealm")
 	public ResponseEntity<Realm> createRealm(@RequestBody Realm realm){

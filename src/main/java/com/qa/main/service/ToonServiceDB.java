@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.qa.main.exception.LevelOutOfRangeException;
 import com.qa.main.exception.RealmNotFoundException;
 import com.qa.main.exception.ToonNotFoundExcepton;
 import com.qa.main.data.Toon;
@@ -29,7 +30,12 @@ public class ToonServiceDB {
 	
 	
 	public ToonWithRealmDTO getToonById(Integer id) {
-			return this.mapper.map(repo.findById(id).get(), ToonWithRealmDTO.class);
+			try {
+				return this.mapper.map(repo.findById(id).get(), ToonWithRealmDTO.class);
+			} catch (Exception e) {
+				throw new ToonNotFoundExcepton();
+			}
+			
 	}
 	
 	public List<ToonWithRealmDTO> getAllToons(){
@@ -42,7 +48,11 @@ public class ToonServiceDB {
 	}
 	
 	public Toon createToon (Toon toon) {
-		try {
+		
+			if(toon.getLevel() >60 && toon.getLevel()>0) {
+				throw new LevelOutOfRangeException();
+			}
+			try {
 			return repo.save(toon);
 		} catch (Exception e) {
 			throw new RealmNotFoundException();

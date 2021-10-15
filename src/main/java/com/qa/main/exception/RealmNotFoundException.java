@@ -17,25 +17,5 @@ public class RealmNotFoundException extends RuntimeException{
 		// TODO Auto-generated constructor stub
 	}
 
-	public RealmNotFoundException(String message, Throwable cause, boolean enableSuppression,
-			boolean writableStackTrace) {
-		super(message, cause, enableSuppression, writableStackTrace);
-		// TODO Auto-generated constructor stub
-	}
-
-	public RealmNotFoundException(String message, Throwable cause) {
-		super(message, cause);
-		// TODO Auto-generated constructor stub
-	}
-
-	public RealmNotFoundException(String message) {
-		super(message);
-		// TODO Auto-generated constructor stub
-	}
-
-	public RealmNotFoundException(Throwable cause) {
-		super(cause);
-		// TODO Auto-generated constructor stub
-	}
 
 }

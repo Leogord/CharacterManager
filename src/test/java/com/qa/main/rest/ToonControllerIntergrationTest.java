@@ -25,6 +25,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.qa.main.data.Realm;
 import com.qa.main.data.Toon;
+import com.qa.main.data.User;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
@@ -41,7 +42,7 @@ public class ToonControllerIntergrationTest {
 	
 	@Test
 	 void testGetToonById() throws Exception {
-		final Toon savedToon = new Toon(1,"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"));
+		final Toon savedToon = new Toon(1,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"));
 		String savedAsJson = this.mapper.writeValueAsString(savedToon);
 		 
 		RequestBuilder request = get("/getToonById/" + savedToon.getId());
@@ -54,7 +55,7 @@ public class ToonControllerIntergrationTest {
 	@Test
 	void testGetAllToons() throws Exception {
 		String savedToonAsJSON = this.mapper
-				.writeValueAsString(List.of(new Toon(1,"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"))));
+				.writeValueAsString(List.of(new Toon(1,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"))));
 		
 		RequestBuilder request = get("/getAllToons");
 		
@@ -66,10 +67,10 @@ public class ToonControllerIntergrationTest {
 	
 	@Test
 	void testCreate() throws Exception {
-		final Toon testToon = new Toon(null,"Night Elf",60,"Gonzalo","Warrior",100);
+		final Toon testToon = new Toon(2,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"));
 		String testToonAsJSON = this.mapper.writeValueAsString(testToon);
 
-		final Toon savedToon = new Toon(2,"Night Elf",60,"Gonzalo","Warrior",100);
+		final Toon savedToon = new Toon(2,new User(1,"Jack",null),"Gonzalo",60,"Night Elf","Warrior",100,new Realm(1,"Frostmane","EU"));
 		String savedToonAsJSON = this.mapper.writeValueAsString(savedToon);
 
 		RequestBuilder request = post("/createToon").contentType(MediaType.APPLICATION_JSON)
@@ -83,7 +84,7 @@ public class ToonControllerIntergrationTest {
 	
 	@Test
 	void testUpdate() throws Exception {
-		final Toon testToon = new Toon(1,"Night Elf",60,"Garry","Mage",150);
+		final Toon testToon = new Toon(1,new User(1,"Jack",null),"Shadrock",60,"Night Elf","Hunter",100,new Realm(1,"Frostmane","EU"));
 		final String testToonAsJSON = this.mapper.writeValueAsString(testToon);
 
 		RequestBuilder request = put("/updateToon/1").contentType(MediaType.APPLICATION_JSON)
