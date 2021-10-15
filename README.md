@@ -25,10 +25,8 @@ got there in the end.
 
 Possible improvements for future revisions of the project
 A lot of features could be added to this project. Adding a list of characters that you play the most or even adding what
-items a character has. Would be great to build a frontend for this at some point.
+items a character has. Would be great to build a frontend for this at some point. I would like to remake my DTO's so they dont have objects
+in them. 
 
-Here is a link to my Jira board
-https://jack-smart.atlassian.net/jira/software/projects/CHARACTER/boards/1/backlog
-
-The risk assessment file and the postman screenshots are in this repo in the documentation folder.
+The risk assessment file, ERD and the postman screenshots are in this repo in the documentation folder.
 
